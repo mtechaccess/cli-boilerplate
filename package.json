@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/bin/cli"
   },
+  "bin": {
+    "cli-boilerplate": "dist/bin/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mtechaccess/cli-boilerplate.git"
