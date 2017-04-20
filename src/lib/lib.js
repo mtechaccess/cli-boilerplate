@@ -1,5 +1,6 @@
 'use strict';
 
+import fs from 'fs-extra-promise';
 import log from './logger';
 
 let config;
@@ -11,13 +12,18 @@ let config;
  */
 async function _getConfig() {
   try {
-    config = await fs.readJsonASync(`../../config.json`);
+    config = await fs.readJsonAsync(`../../config.json`);
   } catch (e) {
     log.debug(`No config found!`);
     throw e;
   }
 }
 
-export function command() {
+/**
+ * Command handler
+ * @method command
+ * @param {Object} args arguments
+ */
+export function command(args) {
   log.info(`command`);
 }
