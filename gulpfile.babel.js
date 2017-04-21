@@ -11,19 +11,19 @@ import jsdoc from 'gulp-jsdoc3';
 import minimist from 'minimist';
 
 const config = {
-  src: `./src/**/*.js`,
+  src:  `./src/**/*.js`,
   dist: `./dist`
 };
 
 const defaultOptions = {
-  string: `env`,
+  string:  `env`,
   default: {
-    env: process.env.NODE_ENV || `production`,
+    env:  process.env.NODE_ENV || `production`,
     bump: `patch`
   }
 };
 
-let options = minimist(process.argv.slice(2), defaultOptions);
+const options = minimist(process.argv.slice(2), defaultOptions);
 
 /**
  * Get uncached package version.
@@ -37,7 +37,7 @@ function getPackageJsonVersion() {
 }
 
 gulp.task(`docs`, () => {
-  let docConf = require(`./jsdoc.json`);
+  const docConf = require(`./jsdoc.json`);
   return gulp.src([`README.md`, `./src/**/*.js`], {
     read: false
   })
@@ -61,7 +61,7 @@ gulp.task(`build:changelog`, () => {
     buffer: false
   })
     .pipe(conventionalChangelog({
-      preset: `eslint`,
+      preset:       `eslint`,
       releaseCount: 0
     }))
     .pipe(gulp.dest(`./`));
@@ -81,14 +81,14 @@ gulp.task(`build:bump-version`, () => {
 // set package.json version - unused
 gulp.task(`build:set-version`, cb => {
   if (!options.version) {
-    return cb(`Invalid semver ` + parsed);
+    return cb(`Invalid semver ${parsed}`);
   }
 
-  let verKey = options.version_key || `version`;
-  let regex  = opts.regex || new RegExp(
-    '([\'|\"]?' + verKey + '[\'|\"]?[ ]*:[ ]*[\'|\"]?)(\\d+\\.\\d+\\.\\d+(-' + //eslint-disable-line quotes
-    options.version_preid +
-    '\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*([\'|\"]?)', `i`); //eslint-disable-line quotes
+  const verKey = options.version_key || `version`;
+  const regex  = opts.regex || new RegExp(
+    `(['|\"]?${verKey}['|\"]?[ ]*:[ ]*['|\"]?)(\\d+\\.\\d+\\.\\d+(-${  //eslint-disable-line quotes
+    options.version_preid
+    }\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*(['|\"]?)`, `i`); //eslint-disable-line quotes
   cb();
 });
 
@@ -109,8 +109,8 @@ gulp.task(`build:push-changes`, cb => {
 // =============================================================================
 // Create a tag for the current version where version is taken from the package.json file
 gulp.task(`build:create-new-tag`, cb => {
-  let version = getPackageJsonVersion();
-  git.tag(version, `Created Tag for version: ` + version, function(error) {
+  const version = getPackageJsonVersion();
+  git.tag(version, `Created Tag for version: ${version}`, error => {
     if (error) {
       return cb(error);
     }

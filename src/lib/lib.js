@@ -1,26 +1,33 @@
 'use strict';
 
+import _ from 'lodash';
 import fs from 'fs-extra-promise';
-import log from './logger';
+import path from 'path';
 
-let config;
+import log from './logger';
+import * as utils from './utils';
+
+let _config;
+const _cwd = process.cwd();
 
 /**
- * Get config file
- * @method _getConfig
- * @private
+ * Use config file for options
+ * @method useConfig
+ * @param {Object} options containing path to csv
  */
-async function _getConfig() {
+export async function useConfig(options) {
   try {
-    config = await fs.readJsonAsync(`../../config.json`);
+    _config = await utils.loadConfig();
+
+    console.log(_config);
   } catch (e) {
-    log.debug(`No config found!`);
+    log.error(e);
     throw e;
   }
 }
 
 /**
- * Command handler
+ * Custom command handler
  * @method command
  * @param {Object} args arguments
  */
