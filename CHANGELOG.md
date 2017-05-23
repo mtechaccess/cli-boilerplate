@@ -1,5 +1,19 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/mtechaccess/cli-boilerplate/compare/1.1.0...v1.1.1) (2017-05-23)
+
+
+### deps
+
+* (package): upgrade dependencies ([42476f58ec57699698c2e03f4af6bc4a1d1db30e](https://github.com/mtechaccess/cli-boilerplate/commit/42476f58ec57699698c2e03f4af6bc4a1d1db30e))
+
+### update
+
+* (utils): new _checkConfig which handles any complexity. ([ae6a70b2d79359087570a13f7525e8c76ace5a59](https://github.com/mtechaccess/cli-boilerplate/commit/ae6a70b2d79359087570a13f7525e8c76ace5a59))
+
+
+
 <a name="1.1.0"></a>
-# [1.1.0](https://github.com/mtechaccess/cli-boilerplate/compare/1.0.0...v1.1.0) (2017-04-21)
+# [1.1.0](https://github.com/mtechaccess/cli-boilerplate/compare/1.0.0...1.1.0) (2017-04-21)
 
 
 ### feat
