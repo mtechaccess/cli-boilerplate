@@ -27,6 +27,28 @@ async function _getConfig(arg=null) {
 }
 
 /**
+ * Loop through the config items and check that none have the default `{{ }}` markers.
+ * <br>
+ * called recursively as config might be comlex.
+ * @method _checkConfig
+ * @param {object} level depth of config to check
+ * @private
+ */
+function _checkConfig(level) {
+//check config is valid
+  _.forOwn(level, (v, k)=>{
+    log.debug(`${k}:${v}`);
+    if (typeof v === `object`) {
+      _checkConfig(v);
+    } else {
+      if (v.startsWith(`{{`) || v.endsWith(`}}`)) {
+        throw new Error(`Invalid config parameter [${k}] with value [${v}]`);
+      }
+    }
+  });
+}
+
+/**
  * Load config file.
  * <br>if config is invalid, throw error
  * @method loadConfig
@@ -36,13 +58,7 @@ export async function loadConfig() {
   try {
     await _getConfig(_configPath);
 
-    //check config is valid
-    _.forOwn(_config, (v, k)=>{
-      log.debug(`${k}:${v}`);
-      if (v.startsWith(`{{`) || v.endsWith(`}}`)) {
-        throw new Error(`Invalid config paramter [${k}] with value [${v}]`);
-      }
-    });
+    _checkConfig(_config);
 
     return _config;
   } catch (e) {
